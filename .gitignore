@@ -1,0 +1,3 @@
+postgres_data/*
+superset_data/*
+data/archive.zip
