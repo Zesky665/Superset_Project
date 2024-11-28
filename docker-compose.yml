@@ -34,6 +34,18 @@ services:
       - DATABASE_PORT=5432
     ports:
       - '8080:8088'
+
+  setup:
+    image: docker:dind
+    container_name: superset_setup
+    privileged: true
+    depends_on:
+      superset:
+        condition: service_healthy
+    volumes:
+      - ./setup.sh:/setup.sh
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sh -c "chmod +x /setup.sh && /setup.sh"
   
 volumes:
   postgres_data:
